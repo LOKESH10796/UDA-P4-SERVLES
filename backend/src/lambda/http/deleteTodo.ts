@@ -8,8 +8,8 @@ const logger = createLogger('deleteTodo.ts')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   logger.info('Going to event: ', event)
-    
-  const todoId = event.pathParameters.todoId
+   
+  const todoId = event.pathParameters?.todoId || ''
   const user = getUserId(event)
   const item = await deleteTodoItem(todoId, user)
   

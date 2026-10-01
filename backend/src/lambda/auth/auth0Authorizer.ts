@@ -30,7 +30,8 @@ export const handler = async (
 ): Promise<CustomAuthorizerResult> => {
   logger.info('Authorizing a user', event.authorizationToken)
   try {
-    const jwtToken = await verifyToken(event.authorizationToken)
+    const authHeader = event.authorizationToken || ''
+    const jwtToken = await verifyToken(authHeader)
     logger.info('User was authorized: ', jwtToken)
 
     return {
@@ -47,7 +48,8 @@ export const handler = async (
       }
     }
   } catch (e) {
-    logger.error('User not authorized: ', { error: e.message })
+    const error = e as Error
+    logger.error('User not authorized: ', { error: error.message })
 
     return {
       principalId: 'user',
@@ -68,7 +70,7 @@ export const handler = async (
 async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const token = getToken(authHeader)
 
-  return verify(token, cert, {algorithms: ['RS256']}) as JwtPayload
+  return verify(token, cert, { algorithms: ['RS256'] }) as JwtPayload
 }
 
 function getToken(authHeader: string): string {

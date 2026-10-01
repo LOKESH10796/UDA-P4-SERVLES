@@ -8,7 +8,7 @@ const logger = createLogger('generateUploadUrl.ts')
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   logger.info('Going to event: ', event)
 
-  const todoId = event.pathParameters.todoId
+  const todoId = event.pathParameters?.todoId || ''
   const uploadUrl = await getUploadUrl(todoId)
   logger.info('Generated URL: ', uploadUrl)
 

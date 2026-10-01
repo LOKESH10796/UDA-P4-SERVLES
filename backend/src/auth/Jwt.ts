@@ -8,4 +8,3 @@ export interface Jwt {
   header: JwtHeader
   payload: JwtPayload
 }
-

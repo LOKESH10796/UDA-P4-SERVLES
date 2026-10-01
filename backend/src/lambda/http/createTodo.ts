@@ -10,12 +10,12 @@ const logger = createLogger('createTodo.ts')
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   logger.info('Going to event: ', event)
 
-  const newTodo: CreateTodoRequest = JSON.parse(event.body)
+  const newTodo: CreateTodoRequest = JSON.parse(event.body || '{}')
   const user = getUserId(event)
   const newItem = await createTodoItem(newTodo, user)
   
   logger.info('Value of newItem ', newItem)
-    
+   
   return {
     statusCode: 201,
     headers: {
@@ -29,5 +29,3 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     })
   }
 }
-
-

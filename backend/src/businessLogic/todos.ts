@@ -1,5 +1,5 @@
 import * as AWS from 'aws-sdk'
-import * as uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { TodoItem } from '../models/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
 import { TodoDelete } from '../models/TodoDelete'
@@ -33,7 +33,7 @@ export async function createTodoItem(
 ): Promise<TodoItem> {
   logger.info('In function: createTodoItem()')
 
-  const todoUUID = uuid.v4()
+  const todoUUID = uuidv4()
   const item = await todoAccess.createTodoItem({
     userId: user,
     todoId: todoUUID,
@@ -75,12 +75,12 @@ export async function deleteTodoItem(
   })
 }
 
-export async function getUploadUrl(todoId: string) {
+export async function getUploadUrl(todoId: string): Promise<string> {
   logger.info('Function getUploadUrl', todoId)
-  
+
   return s3.getSignedUrl('putObject', {
     Bucket: bucketName,
     Key: todoId,
-    Expires: parseInt(urlExpiration)
+    Expires: parseInt(urlExpiration || '3600', 10)
   })
 }

@@ -7,11 +7,12 @@ import { TodoDelete } from '../models/TodoDelete'
 export class TodoAccess {
   constructor(
     private readonly docClient: DocumentClient = createDynamoDBClient(),
-    private readonly TodosTable = process.env.TODOS_TABLE) {}
+    private readonly todosTable: string = process.env.TODOS_TABLE || ''
+  ) {}
 
   async getAllTodos(userId: string): Promise<TodoItem[]> {
     const result = await this.docClient.query({
-      TableName: this.TodosTable,
+      TableName: this.todosTable,
       KeyConditionExpression: '#userId = :i',
       ExpressionAttributeNames: {
         '#userId': 'userId'
@@ -20,47 +21,47 @@ export class TodoAccess {
         ':i': userId
       },
     }).promise()
-    return result.Items as TodoItem[];
+    return result.Items as TodoItem[]
   }
 
-  async createTodoItem(todos: TodoItem): Promise<TodoItem> {
+  async createTodoItem(todo: TodoItem): Promise<TodoItem> {
     await this.docClient.put({
-      TableName: this.TodosTable,
-      Item: todos
+      TableName: this.todosTable,
+      Item: todo
     }).promise()
-    return todos
+    return todo
   }
 
-  async deleteTodoItem(todos: TodoDelete): Promise<TodoDelete> {
+  async deleteTodoItem(todo: TodoDelete): Promise<TodoDelete> {
     await this.docClient.delete({
-      TableName: this.TodosTable,
-      Key: todos
+      TableName: this.todosTable,
+      Key: todo
     }).promise()
-    return todos
+    return todo
   }
 
-  async updateTodoItem(todos: TodoUpdate): Promise<TodoUpdate> {
+  async updateTodoItem(todo: TodoUpdate): Promise<TodoUpdate> {
     await this.docClient.update({
-      TableName: this.TodosTable,
+      TableName: this.todosTable,
       Key: {
-        'userId': todos.userId,
-        'todoId': todos.todoId
+        userId: todo.userId,
+        todoId: todo.todoId
       },
       UpdateExpression: 'set #nameId= :n, dueDate= :d, done= :dn',
       ExpressionAttributeNames: {
         '#nameId': 'name'
       },
       ExpressionAttributeValues: {
-        ':n':todos.name,
-        ':d':todos.dueDate,
-        ':dn':todos.done
+        ':n': todo.name,
+        ':d': todo.dueDate,
+        ':dn': todo.done
       }
     }).promise()
-    return todos
+    return todo
   }
 }
 
 /** Create Dynamo Db */
-function createDynamoDBClient() {
+function createDynamoDBClient(): DocumentClient {
   return new AWS.DynamoDB.DocumentClient()
 }
