@@ -8,10 +8,10 @@
     "cors": "^2.8.5",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
-    "middy": "^0.24.0",
+    "middy": "^0.36.0",
     "serverless-plugin-tracing": "^2.0.0",
     "source-map-support": "^0.5.21",
-    "uuid": "^14.0.2",
+    "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },
   "devDependencies": {
@@ -19,7 +19,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.10.0",
     "@types/uuid": "^10.0.0",
-    "aws-sdk": "^1.18.0",
+    "aws-sdk": "^2.1500.0",
     "serverless-aws-documentation": "^1.1.0",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-plugin-canary-deployments": "^0.8.0",
@@ -27,7 +27,7 @@
     "serverless-webpack": "^5.14.0",
     "ts-loader": "^9.5.0",
     "typescript": "^5.4.5",
-    "vitest": "^5.0.3",
+    "vitest": "^1.0.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^7.2.3"
   },
