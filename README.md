@@ -1,53 +1,48 @@
-# Uda P4 Servles
+# ?? Serverless TODO App
 
-Full-stack web application for managing services, likely a Udacity capstone project.
+![Serverless](https://img.shields.io/badge/Serverless-Framework-red?style=for-the-badge&logo=serverless)
+![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-orange?style=for-the-badge&logo=amazonaws)
+![React](https://img.shields.io/badge/React-16.x-blue?style=for-the-badge&logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-14.x-green?style=for-the-badge&logo=node.js)
 
-## Features
+A fully serverless, highly scalable TODO application built using the Serverless Framework and AWS (Lambda, API Gateway, DynamoDB, S3).
 
-- Backend API
-- Frontend client
-- Database integration
-- RESTful endpoints
+## ?? Features
 
-## Badges
+* **Serverless Backend:** REST API built with Node.js and AWS Lambda.
+* **NoSQL Database:** Data persisted in AWS DynamoDB for fast reads and writes.
+* **Authentication:** Integrated with Auth0 for secure user authentication (JWT).
+* **Storage:** Image attachments stored securely in AWS S3.
+* **Modern Frontend:** React client with a clean UI to manage TODOs.
+* **CI/CD:** Automated deployment via GitHub Actions.
 
-![GitHub Repo Stars](https://img.shields.io/github/stars/LOKESH10796/UDA-P4-SERVLES?style=for-the-badge)
-![GitHub Forks](https://img.shields.io/github/forks/LOKESH10796/UDA-P4-SERVLES?style=for-the-badge)
-![GitHub Issues](https://img.shields.io/github/issues/LOKESH10796/UDA-P4-SERVLES?style=for-the-badge)
-![GitHub License](https://img.shields.io/github/license/LOKESH10796/UDA-P4-SERVLES?style=for-the-badge)
+## ??? Architecture
 
-## Installation
+The backend consists of several microservices deployed as AWS Lambda functions:
+- \Auth\: Custom authorizer to validate JWT tokens.
+- \GetTodos\: Fetch all TODO items for a user.
+- \CreateTodo\: Create a new TODO item.
+- \UpdateTodo\: Update an existing TODO.
+- \DeleteTodo\: Remove a TODO.
+- \GenerateUploadUrl\: Generate a presigned S3 URL for secure image uploads.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/LOKESH10796/UDA-P4-SERVLES.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd UDA-P4-SERVLES
-   ```
-3. Install dependencies (if applicable):
-   ```bash
-   # For Node.js projects
+## ?? Setup & Deployment
+
+1. **Install Serverless Framework:** \
+pm install -g serverless\
+2. **Deploy Backend:**
+   \\\ash
+   cd backend
    npm install
-   # For Python projects
-   pip install -r requirements.txt
-   ```
+   sls deploy -v
+   \\\
+3. **Run Frontend locally:**
+   \\\ash
+   cd client
+   npm install
+   npm start
+   \\\
 
-## Usage
+## ?? License
 
-Add usage instructions here.
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-Lokesh Gounder - - lokeshgounder@gmail.com
-
-Project Link: [https://github.com/LOKESH10796/UDA-P4-SERVLES](https://github.com/LOKESH10796/UDA-P4-SERVLES)
+This project is licensed under the MIT License.
